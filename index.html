@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6dd5ed, #2193b0);
+            text-align: center;
+            padding: 40px;
+            color: white;
+        }
+        .container {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 350px;
+            margin: auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        input, select, button {
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 16px;
+        }
+        button {
+            background-color: #ff9800;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e68900;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🌡 Temperature Converter</h2>
+        <input type="number" id="tempInput" placeholder="Enter temperature" />
+        
+        <select id="unitFrom">
+            <option value="C">Celsius (°C)</option>
+            <option value="F">Fahrenheit (°F)</option>
+            <option value="K">Kelvin (K)</option>
+        </select>
+
+        <button onclick="convertTemp()">Convert</button>
+
+        <h3 id="result"></h3>
+    </div>
+
+    <script>
+        function convertTemp() {
+            let temp = parseFloat(document.getElementById("tempInput").value);
+            let from = document.getElementById("unitFrom").value;
+            let result = "";
+
+            if (isNaN(temp)) {
+                document.getElementById("result").innerHTML = "❌ Please enter a valid number.";
+                return;
+            }
+
+            if (from === "C") {
+                result = `
+                    ${temp}°C = ${(temp * 9/5 + 32).toFixed(2)}°F<br>
+                    ${temp}°C = ${(temp + 273.15).toFixed(2)}K
+                `;
+            }
+            else if (from === "F") {
+                result = `
+                    ${temp}°F = ${((temp - 32) * 5/9).toFixed(2)}°C<br>
+                    ${temp}°F = ${((temp - 32) * 5/9 + 273.15).toFixed(2)}K
+                `;
+            }
+            else if (from === "K") {
+                result = `
+                    ${temp}K = ${(temp - 273.15).toFixed(2)}°C<br>
+                    ${temp}K = ${((temp - 273.15) * 9/5 + 32).toFixed(2)}°F
+                `;
+            }
+
+            document.getElementById("result").innerHTML = result;
+        }
+    </script>
+
+</body>
+</html>
